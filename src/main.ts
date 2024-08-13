@@ -17,15 +17,15 @@ async function boot() {
       .filter((ip) => ip.family === 'IPv4')
       .map((ip) => ip.address);
 
-    logger.info(`::> Server is ready!`);
+    logger.info(`🚀 Server is ready!`);
 
     let ipv4List = '';
     ipInterfaces.map((ip) => {
-      ipv4List += `\thttp://${ip}:${env.port}\n`;
+      ipv4List += `🌐\thttp://${ip}:${env.port}\n`;
     });
 
-    logger.info(`::> Server is running on:\n${ipv4List}`);
-    logger.info(`::> Swagger docs available at: /docs`);
+    logger.info(`🖥 Server is running on:\n${ipv4List}`);
+    logger.info(`📗 Swagger docs available at: /docs`);
   });
 }
 

@@ -9,7 +9,7 @@ export const globalErrHandler = (
   next: NextFunction,
 ) => {
   if (err instanceof ValidateError) {
-    console.error(`Caught Validation Error for ${req.path}:`, err.fields);
+    console.error(`❌ Caught Validation Error for ${req.path}:`, err.fields);
     return res.status(422).json({
       message: 'Invalid request!',
       error: err?.fields,

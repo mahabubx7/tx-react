@@ -7,9 +7,9 @@
     "specVersion": 3,
     "spec": {
       "info": {
-        "title": "TODO API",
+        "title": "TxJS + React",
         "version": "1.0.0",
-        "description": "API documentation for the TODO application"
+        "description": "API documentation for the sample TODO application"
       },
       "securityDefinitions": {
         "Bearer": {

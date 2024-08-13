@@ -13,6 +13,7 @@ const loadVariables = () => {
 
 export const envRawVars = loadVariables();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const rules = [
   'required',
   'nullable',

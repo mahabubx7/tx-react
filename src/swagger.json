@@ -1,303 +1,281 @@
 {
-	"openapi": "3.0.0",
-	"components": {
-		"examples": {},
-		"headers": {},
-		"parameters": {},
-		"requestBodies": {},
-		"responses": {},
-		"schemas": {
-			"Todo": {
-				"properties": {
-					"_id": {
-						"type": "string"
-					},
-					"title": {
-						"type": "string"
-					},
-					"completed": {
-						"type": "boolean"
-					},
-					"createdAt": {
-						"type": "string"
-					},
-					"updatedAt": {
-						"type": "string"
-					},
-					"__v": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "number",
-								"format": "double"
-							}
-						]
-					}
-				},
-				"required": [
-					"_id",
-					"title",
-					"completed",
-					"createdAt",
-					"updatedAt"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"CreateTodoDto": {
-				"properties": {
-					"completed": {
-						"type": "boolean"
-					},
-					"title": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"title"
-				],
-				"type": "object"
-			},
-			"Partial_CreateTodoDto_": {
-				"properties": {
-					"title": {
-						"type": "string"
-					},
-					"completed": {
-						"type": "boolean"
-					}
-				},
-				"type": "object",
-				"description": "Make all properties in T optional"
-			},
-			"UpdateTodoDto": {
-				"$ref": "#/components/schemas/Partial_CreateTodoDto_"
-			}
-		},
-		"securitySchemes": {}
-	},
-	"info": {
-		"title": "TODO API",
-		"version": "1.0.0",
-		"description": "API documentation for the TODO application"
-	},
-	"paths": {
-		"/hello": {
-			"get": {
-				"operationId": "GetMessage",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "string"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Hello"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/hello/greet": {
-			"get": {
-				"operationId": "Greet",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "string"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Hello"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/todo": {
-			"get": {
-				"operationId": "GetTodos",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Todo"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Todo"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "AddTodo",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Todo"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Todo"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CreateTodoDto"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/todo/{id}": {
-			"get": {
-				"operationId": "GetTodoById",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Todo"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Todo"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			},
-			"put": {
-				"operationId": "UpdateTodo",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Todo"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Todo"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UpdateTodoDto"
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"operationId": "DeleteTodo",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Todo"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Todo"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		}
-	},
-	"servers": [
-		{
-			"url": "/"
-		}
-	],
-	"securityDefinitions": {
-		"Bearer": {
-			"type": "apiKey",
-			"name": "Authorization",
-			"in": "header"
-		}
-	}
+  "openapi": "3.0.0",
+  "components": {
+    "examples": {},
+    "headers": {},
+    "parameters": {},
+    "requestBodies": {},
+    "responses": {},
+    "schemas": {
+      "Todo": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "__v": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number",
+                "format": "double"
+              }
+            ]
+          }
+        },
+        "required": ["_id", "title", "completed", "createdAt", "updatedAt"],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CreateTodoDto": {
+        "properties": {
+          "completed": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": ["title"],
+        "type": "object"
+      },
+      "Partial_CreateTodoDto_": {
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "description": "Make all properties in T optional"
+      },
+      "UpdateTodoDto": {
+        "$ref": "#/components/schemas/Partial_CreateTodoDto_"
+      }
+    },
+    "securitySchemes": {}
+  },
+  "info": {
+    "title": "TxJS + React",
+    "version": "1.0.0",
+    "description": "API documentation for the sample TODO application"
+  },
+  "paths": {
+    "/hello": {
+      "get": {
+        "operationId": "GetMessage",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Hello"],
+        "security": [],
+        "parameters": []
+      }
+    },
+    "/hello/greet": {
+      "get": {
+        "operationId": "Greet",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Hello"],
+        "security": [],
+        "parameters": []
+      }
+    },
+    "/todo": {
+      "get": {
+        "operationId": "GetTodos",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Todo"
+                  },
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Todo"],
+        "security": [],
+        "parameters": []
+      },
+      "post": {
+        "operationId": "AddTodo",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Todo"],
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTodoDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todo/{id}": {
+      "get": {
+        "operationId": "GetTodoById",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Todo"
+                    }
+                  ],
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Todo"],
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "UpdateTodo",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Todo"],
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTodoDto"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteTodo",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Todo"],
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
 }

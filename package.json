@@ -4,15 +4,19 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "lint": "tsc --noEmit",
+    "lint": "tsc --noEmit && eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,json,js}\"",
     "tsoa:spec": "tsoa spec",
     "tsoa:routes": "tsoa routes",
     "tsoa": "tsoa spec && tsoa routes",
     "dev": "npm-run-all tsoa --parallel *:dev",
     "prebuild": "rimraf dist",
-    "build": "yarn tsoa && node esbuild.config.js --build",
+    "build": "yarn tsoa && yarn build:css && yarn build:prod",
+    "build:prod": "node esbuild.config.js --prod",
     "build:dev": "node esbuild.config.js --dev",
+    "css:dev": "tailwindcss -i ./src/client/main.css -o dist/client/styles.css --watch",
+    "build:css": "tailwindcss -i ./src/client/main.css -o dist/client/styles.css --minify",
     "start:dev": "node --watch dist/main.js",
     "start": "node dist/main.js"
   },
@@ -31,11 +35,17 @@
     "pino": "^9.3.2",
     "pino-http": "^10.2.0",
     "pino-pretty": "^11.2.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0",
     "reflect-metadata": "^0.2.2",
     "swagger-ui-express": "^5.0.1",
     "tsoa": "^6.4.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/js": "^9.9.0",
     "@types/bcrypt": "^5.0.2",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.7",
@@ -47,10 +57,30 @@
     "@types/pino": "^7.0.5",
     "@types/pino-http": "^5.8.4",
     "@types/pino-pretty": "^5.0.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-router-dom": "^5.3.3",
     "@types/swagger-ui-express": "^4.1.6",
+    "autoprefixer": "^10.4.20",
     "esbuild": "^0.23.0",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.9",
     "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.41",
     "prettier": "^3.3.3",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^3.4.9",
+    "typescript-eslint": "^8.1.0"
+  },
+  "config": {
+    "commitlint": {
+      "extends": [
+        "@commitlint/config-conventional"
+      ],
+      "path": "./commitlint.config.js"
+    }
   }
 }

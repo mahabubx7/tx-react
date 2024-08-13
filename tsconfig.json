@@ -5,6 +5,8 @@
     "target": "es2022",
     "module": "esnext",
     "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -12,11 +14,12 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2022"],
+    "lib": ["es2022", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
     "paths": {
       "@app/*": ["./src/app/*"],
       "@config": ["./src/config"],
       "@utils": ["./src/utils"],
+      "@client/*": ["./src/client/*"],
       "@/*": ["./src/*"]
     }
   }
